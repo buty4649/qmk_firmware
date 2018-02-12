@@ -58,7 +58,7 @@ enum macro_keycodes {
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
-#include "keymap.h"
+#include "keymatrics.h"
 
 #ifdef AUDIO_ENABLE
 
