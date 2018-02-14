@@ -28,16 +28,12 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+#define _LOWER  1
+#define _RAISE  2
+#define _ADJUST 3
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
   LOWER,
   RAISE,
   ADJUST,
@@ -99,24 +95,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_qwerty);
         #endif
         persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
@@ -279,16 +257,10 @@ void matrix_update(struct CharacterMatrix *dest,
 }
 
 //assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_LOWER 8
-#define L_RAISE 16
-#define L_FNLAYER 64
-#define L_NUMLAY 128
-#define L_NLOWER 136
-#define L_NFNLAYER 192
-#define L_MOUSECURSOR 256
-#define L_ADJUST 65536
-#define L_ADJUST_TRI 65560
+#define L_BASE   0
+#define L_LOWER  (1 << _LOWER)
+#define L_RAISE  (1 << _RAISE)
+#define L_ADJUST (1 << _ADJUST)
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
@@ -332,7 +304,6 @@ void render_status(struct CharacterMatrix *matrix) {
            matrix_write_P(matrix, PSTR("Lower"));
            break;
         case L_ADJUST:
-        case L_ADJUST_TRI:
            matrix_write_P(matrix, PSTR("Adjust"));
            break;
         default:
