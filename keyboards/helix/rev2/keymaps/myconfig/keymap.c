@@ -293,7 +293,15 @@ void render_status(struct CharacterMatrix *matrix) {
   char buf[40];
   snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
   matrix_write_P(matrix, PSTR("\nLayer: "));
-    switch (layer_state) {
+
+  uint32_t state = layer_state;
+  state = state & 0xFFFF0000 ? state & 0xFFFF0000 : state;
+  state = state & 0xFF00FF00 ? state & 0xFF00FF00 : state;
+  state = state & 0xF0F0F0F0 ? state & 0xF0F0F0F0 : state;
+  state = state & 0xCCCCCCCC ? state & 0xCCCCCCCC : state;
+  state = state & 0xAAAAAAAA ? state & 0xAAAAAAAA : state;
+
+    switch (state) {
         case L_BASE:
            matrix_write_P(matrix, PSTR("Default"));
            break;
