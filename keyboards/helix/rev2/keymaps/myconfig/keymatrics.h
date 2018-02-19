@@ -1,3 +1,33 @@
+#define JA_1    KC_1     // 1 and !
+#define JA_2    KC_2     // 2 and "
+#define JA_3    KC_3     // 3 and #
+#define JA_4    KC_4     // 4 and $
+#define JA_5    KC_5     // 5 and %
+#define JA_6    KC_6     // 6 and &
+#define JA_7    KC_7     // 7 and '
+#define JA_8    KC_8     // 8 and (
+#define JA_9    KC_9     // 9 and )
+#define JA_0    KC_0     // 0
+
+#define JA_CLN  KC_QUOT  // : and *
+#define JA_SCLN KC_SCLN  // ; and +
+#define JA_MINS KC_MINS  // - and =
+#define JA_AT   KC_LBRC  // @ and `
+#define JA_LBRC KC_RBRC  // [ and {
+#define JA_RBRC KC_NUHS  // ] and }
+//#define JA_RBRC KC_BSLS  // ] and }
+#define JA_CIRC KC_EQL   // ^ and ~
+#define JA_UNDS KC_RO    // _
+#define JA_EQL  KC_UNDS  // =
+#define JA_TILD KC_PLUS  // ~
+#define JA_GRV  KC_LCBR  // `
+#define JA_LCBR KC_RCBR  // {
+#define JA_RCBR KC_PIPE  // }
+
+#define JA_COMM KC_COMM  // , and <
+#define JA_DOT  KC_DOT   // . and >
+#define JA_SLSH KC_SLSH  // / and ?
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
