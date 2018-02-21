@@ -37,34 +37,15 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  BACKLIT,
-  EISU,
-  KANA,
   RGBRST
-};
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
 };
 
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-//Macros
-#define M_SAMPLE M(KC_SAMPLEMACRO)
 
 #include "keymatrics.h"
-
-#ifdef AUDIO_ENABLE
-
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-#endif
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
@@ -78,9 +59,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    #ifdef RGBLIGHT_ENABLE
-      //rgblight_mode(RGB_current_mode);
-    #endif
     layer_on(layer3);
   } else {
     layer_off(layer3);
@@ -91,9 +69,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
@@ -105,16 +80,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          #ifdef RGBLIGHT_ENABLE
-            //rgblight_mode(16);
-          #endif
         }
         layer_on(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        #ifdef RGBLIGHT_ENABLE
-          //rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
-        #endif
         TOG_STATUS = false;
         layer_off(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
@@ -128,16 +97,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          #ifdef RGBLIGHT_ENABLE
-            //rgblight_mode(15);
-          #endif
         }
         layer_on(_RAISE);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        #ifdef RGBLIGHT_ENABLE
-          //rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
-        #endif
         layer_off(_RAISE);
         TOG_STATUS = false;
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
@@ -163,30 +126,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       return false;
       break;
-    case EISU:
-      if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
-        }else{
-          SEND_STRING(SS_LALT("`"));
-        }
-      } else {
-        unregister_code(KC_LANG2);
-      }
-      return false;
-      break;
-    case KANA:
-      if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
-        }else{
-          SEND_STRING(SS_LALT("`"));
-        }
-      } else {
-        unregister_code(KC_LANG1);
-      }
-      return false;
-      break;
     case RGBRST:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
@@ -201,9 +140,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
@@ -214,31 +150,6 @@ void matrix_init_user(void) {
     #endif
 }
 
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-}
-
-void shutdown_user()
-{
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
 
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
