@@ -35,7 +35,8 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   SYMBOL,
   ADJUST,
-  RGBRST
+  RGBRST,
+  SCRLOCK
 };
 
 
@@ -96,6 +97,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
+      break;
+    case SCRLOCK:
+      if (record->event.pressed) {
+          if (keymap_config.swap_lalt_lgui==false) {
+              // Mac(Ctrl+Shift+Power)
+              SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_POWER))));
+          } else {
+              // Windows(Win+L)
+              SEND_STRING(SS_LGUI(SS_TAP(X_L)));
+          }
+          return false;
+      }
       break;
   }
   return true;
