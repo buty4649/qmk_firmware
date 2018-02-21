@@ -46,7 +46,6 @@ enum custom_keycodes {
 #include "keys.h"
 
 // define variables for reactive RGB
-bool TOG_STATUS = false;
 int RGB_current_mode;
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -64,15 +63,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case SYMBOL:
       if (record->event.pressed) {
-          //not sure how to have keyboard check mode and set it to a variable, so my work around
-          //uses another variable that would be set to true after the first time a reactive key is pressed.
-        if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
-        } else {
-          TOG_STATUS = !TOG_STATUS;
-        }
         layer_on(_SYMBOL);
       } else {
-        TOG_STATUS = false;
         layer_off(_SYMBOL);
       }
       return false;
