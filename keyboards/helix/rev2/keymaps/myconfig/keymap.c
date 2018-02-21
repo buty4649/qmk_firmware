@@ -45,7 +45,7 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#include "keymatrics.h"
+#include "keys.h"
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
