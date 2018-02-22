@@ -31,8 +31,6 @@
 #define JA_JYEN KC_INT3    // ¥
 #define JA_PIPE S(KC_INT3) // |
 
-#define LAUNCH  CTL_T(S(KC_ENT)) // ランチャー起動
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty

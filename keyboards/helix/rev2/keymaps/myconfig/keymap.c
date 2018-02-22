@@ -39,6 +39,7 @@ enum custom_keycodes {
   SCRLOCK,
   COPY,
   PASTE,
+  LAUNCH,
   PRTSCR
 };
 
@@ -134,6 +135,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               // Windows(Ctrl+V)
               SEND_STRING(SS_LCTRL(SS_TAP(X_V)));
           }
+          return false;
+      }
+      break;
+    case LAUNCH:
+      if (record->event.pressed) {
+          SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_ENTER))));
           return false;
       }
       break;
