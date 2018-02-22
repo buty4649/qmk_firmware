@@ -38,7 +38,8 @@ enum custom_keycodes {
   RGBRST,
   SCRLOCK,
   COPY,
-  PASTE
+  PASTE,
+  PRTSCR
 };
 
 
@@ -132,6 +133,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
               // Windows(Ctrl+V)
               SEND_STRING(SS_LCTRL(SS_TAP(X_V)));
+          }
+          return false;
+      }
+      break;
+    case PRTSCR:
+      if (record->event.pressed) {
+          if (keymap_config.swap_lalt_lgui==false) {
+              // Mac(Command+Ctrl+Shift+4)
+              SEND_STRING(SS_LGUI(SS_LCTRL(SS_LSFT(SS_TAP(X_4)))));
+          } else {
+              // Windows(Alt+PrtScr)
+              SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)));
           }
           return false;
       }
