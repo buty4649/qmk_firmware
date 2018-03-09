@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+//#define MASTER_LEFT
+ #define MASTER_RIGHT
 // #define EE_HANDS
 
 #define SSD1306OLED
@@ -51,4 +51,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
+#endif
+
+#ifdef PS2_USE_INT
+#define PS2_CLOCK_PORT  PORTB
+#define PS2_CLOCK_PIN   PINB
+#define PS2_CLOCK_DDR   DDRB
+#define PS2_CLOCK_BIT   5
+#define PS2_DATA_PORT   PORTB
+#define PS2_DATA_PIN    PINB
+#define PS2_DATA_DDR    DDRB
+#define PS2_DATA_BIT    6
+
+#define PS2_MOUSE_USE_REMOTE_MODE
+
+#define PS2_INT_INIT()  do {    \
+    PCICR |= (1<<PCIE0);        \
+} while (0)
+#define PS2_INT_ON()  do {      \
+    PCMSK0 |= (1<<PCINT5);      \
+} while (0)
+#define PS2_INT_OFF() do {      \
+    PCMSK0 &= ~(1<<PCINT5);      \
+} while (0)
+#define PS2_INT_VECT   PCINT0_vect
 #endif
