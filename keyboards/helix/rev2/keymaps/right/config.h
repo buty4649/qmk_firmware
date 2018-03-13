@@ -63,7 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_DATA_DDR    DDRB
 #define PS2_DATA_BIT    6
 
-#define PS2_MOUSE_USE_REMOTE_MODE
 #define PS2_MOUSE_X_MULTIPLIER 3
 #define PS2_MOUSE_Y_MULTIPLIER 3
 #define PS2_MOUSE_V_MULTIPLIER 1
