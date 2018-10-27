@@ -72,7 +72,16 @@ void ps2_mouse_init_user(void) {
 
 void ps2_mouse_task(void) {
     static uint8_t buttons_prev = 0;
+    static uint8_t skip_count = 0;
     extern int tp_buttons;
+
+    skip_count = (skip_count + 1) % 3;
+    if (skip_count > 0) {
+        PS2_INT_OFF();
+        return;
+    } else {
+        PS2_INT_ON();
+    }
 
     /* receives packet from mouse */
     uint8_t rcv;
