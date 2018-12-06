@@ -114,8 +114,8 @@ void pointing_device_task() {
     println();
 
     report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.x = (left-right) * 50;
-    currentReport.y = (up-down) * 50;
+    currentReport.x = (right-left) * 50;
+    currentReport.y = (down-up) * 50;
     pointing_device_set_report(currentReport);
 
     pointing_device_send();
