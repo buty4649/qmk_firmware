@@ -1,5 +1,5 @@
 #include <print.h>
-#include "usb_esc.h"
+#include "mini_trackball.h"
 #include "pointing_device.h"
 #include "i2c.h"
 

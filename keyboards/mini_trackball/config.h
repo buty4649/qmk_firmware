@@ -4,11 +4,11 @@
 #include "config_common.h"
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xE53C
+#define PRODUCT_ID      0x1207
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    buty4649
-#define PRODUCT         USB-ESC key
-#define DESCRIPTION     USB ESC KEY
+#define PRODUCT         MiniTrackball Mouse
+#define DESCRIPTION     MiniTrackball Mouse
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
